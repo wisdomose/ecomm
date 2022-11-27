@@ -1,3 +1,1 @@
 ### Next steps
-
-- setup tests
