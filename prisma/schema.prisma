@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int  @id @default(autoincrement())
+  fname String
+  lname String
+  email String @unique
+  password String
+  avatar String
+  contact String @unique
+  last_loggedin_at DateTime
+  created_at DateTime
+  updated_at DateTime
+  addresses Address[]
+  wishlist Wishlist[]
+  likes Like[]
+  order Order[]
+}
+
+model Product {
+  id Int  @id @default(autoincrement())
+  name String
+  description String
+  stock Int
+  disabled Boolean @default(false)
+  price Decimal
+  discount Int @default(0)
+  created_at DateTime
+  updated_at DateTime @updatedAt
+  wishlist Wishlist[]
+  likes Like[]
+  order Order[]
+}
+
+model Address {
+  id Int @id @default(autoincrement())
+  owner User @relation(fields: [owner_id], references: [id])
+  owner_id Int
+  country String
+  city String
+  state String
+  address String
+  zip String
+}
+
+// model Card {
+//   id Int @id @default(autoincrement())
+//   owner User @relation(fields: [owner_id], references: [id])
+//   owner_id Int
+//   name String
+//   bank String
+//   account_num String
+//   cvv String
+// }
+
+model Wishlist {
+  id Int @id @default(autoincrement())
+  owner_id Int
+  product_id Int
+  owner User @relation(fields: [owner_id], references: [id])
+  product Product @relation(fields: [product_id], references: [id])
+  created_at DateTime
+  updated_at DateTime @updatedAt
+}
+
+model Like {
+  id Int @id @default(autoincrement())
+  owner_id Int
+  product_id Int
+  owner User @relation(fields: [owner_id], references: [id])
+  product Product @relation(fields: [product_id], references: [id])
+  created_at DateTime
+  updated_at DateTime @updatedAt
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  owner_id Int
+  product_id Int
+  owner User @relation(fields: [owner_id], references: [id])
+  product Product @relation(fields: [product_id], references: [id])
+  quantity Int @default(1)
+  status DeliveryStatus @default(processing)
+  created_at DateTime
+  updated_at DateTime @updatedAt
+}
+
+enum DeliveryStatus {
+  delivered
+  shipping
+  processing
+}
