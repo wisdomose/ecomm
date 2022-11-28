@@ -26,6 +26,7 @@
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
     "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.12",
     "@types/ejs": "^3.1.1",
     "@types/express": "^4.17.14",
@@ -47,6 +48,7 @@
   "dependencies": {
     "@prisma/client": "^4.6.1",
     "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "ejs": "^3.1.8",
     "env-schema": "^5.1.1",
