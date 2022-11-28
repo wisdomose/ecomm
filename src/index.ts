@@ -1,4 +1,4 @@
-import { config } from "./lib/config";
+import { config } from "./config";
 import { app } from "./lib/createServer";
 import { logger } from "./lib/logger";
 
