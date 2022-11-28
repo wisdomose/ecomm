@@ -16,11 +16,11 @@ model User {
   lname String
   email String @unique
   password String
-  avatar String
+  avatar String?
   contact String @unique
-  last_loggedin_at DateTime
-  created_at DateTime
-  updated_at DateTime
+  last_loggedin_at DateTime?
+  created_at DateTime?
+  updated_at DateTime?
   addresses Address[]
   wishlist Wishlist[]
   likes Like[]
@@ -90,13 +90,18 @@ model Order {
   owner User @relation(fields: [owner_id], references: [id])
   product Product @relation(fields: [product_id], references: [id])
   quantity Int @default(1)
-  status DeliveryStatus @default(processing)
+  status DeliveryStatus @default(PROCESSING)
   created_at DateTime
   updated_at DateTime @updatedAt
 }
 
 enum DeliveryStatus {
-  delivered
-  shipping
-  processing
+  DELIVERED
+  SHIPPING
+  PROCESSING
+}
+
+enum Role {
+  ADMIN
+  USER
 }
