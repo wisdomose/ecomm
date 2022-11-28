@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodTypeAny } from "zod";
+import { Exception } from "../lib/exception";
 
 export function schemaValidator<T extends ZodTypeAny>(schema: T) {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -12,7 +13,7 @@ export function schemaValidator<T extends ZodTypeAny>(schema: T) {
       next();
     } catch (e: any) {
       const msg = (e?.issues ?? [])[0].message;
-      return res.status(200).send({ message: msg ?? e.message, code: 400 });
+      next(new Exception({ message: msg ?? e.message, code: 400 }));
     }
   };
 }
