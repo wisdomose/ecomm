@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import { router } from "./routes";
 import path from "path";
+import { errorMiddleware } from "../middlewares/error";
 
 const app = express();
 
@@ -13,5 +14,6 @@ app.set("view engine", "ejs");
 app.use("/assets", express.static(path.join(process.cwd(), "public")));
 
 router(app);
+app.use(errorMiddleware);
 
 export { app };
